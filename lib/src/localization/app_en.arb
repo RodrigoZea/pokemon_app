@@ -1,0 +1,6 @@
+{
+  "appTitle": "pokemon_app",
+  "@appTitle": {
+    "description": "Esta es una aplicación que te permite consultar sobre distintos datos sobre Pokémones."
+  }
+}
