@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:pokemon_app/core/providers.dart';
 import 'package:pokemon_app/presentation/pages/home_page.dart';
 import 'package:pokemon_app/presentation/pages/landing_page.dart';
 
@@ -50,6 +52,11 @@ class App extends StatelessWidget {
 }
 
 // Correr app
-void main() async { 
-  runApp(const App());
+void main() async {
+  runApp(ProviderScope(
+    overrides: [
+      clientProvider.overrideWithValue(client),
+    ],
+    child: const App(),
+  ));
 }
