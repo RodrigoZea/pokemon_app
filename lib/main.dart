@@ -7,7 +7,7 @@ import 'package:pokemon_app/presentation/pages/home_page.dart';
 import 'package:pokemon_app/presentation/pages/landing_page.dart';
 import 'package:pokemon_app/presentation/pages/pokemon_detail_page.dart';
 
-/* Configuración de router y rutas */
+/// Configuración de Router
 final GoRouter _router = GoRouter(
   routes: <RouteBase>[
     GoRoute(
@@ -39,6 +39,7 @@ final GoRouter _router = GoRouter(
   ]
 );
 
+/// Configuración de cliente de GraphQL
 final HttpLink httpLink = HttpLink(
     'https://graphql-pokeapi.graphcdn.app/'
   );
@@ -51,7 +52,9 @@ ValueNotifier<GraphQLClient> client = ValueNotifier(
 );
 
 
-// Declaración de app principal 
+/// App
+/// 
+/// App principal. Debe estar encapsulada dentro de ambos el proveedor de GraphQL y el router. 
 class App extends StatelessWidget {
   const App({super.key});
 
@@ -66,7 +69,7 @@ class App extends StatelessWidget {
   }
 }
 
-// Correr app
+/// Encargado de correr el app principal. Se realiza el overrideWithValue para reemplazar el valor en 'lib/core/providers.dart'
 void main() async {
   runApp(ProviderScope(
     overrides: [

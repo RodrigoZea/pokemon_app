@@ -23,6 +23,7 @@ dependencies:
   graphql_flutter: ^5.1.2
   hooks_riverpod: ^2.5.1
   json_annotation: ^4.9.0
+  mockito: ^5.4.4
   riverpod: ^2.5.1
 
 dev_dependencies:

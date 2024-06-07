@@ -49,7 +49,7 @@ class PokemonNotifier extends StateNotifier<PokemonState> {
   Future<void> fetchPokemons(int limit) async {
     // solo queremos realizar un fetch al cargar, evitamos varios de esta manera
     if (state.loading) return; 
-
+    state = state.copyWith(loading: true);
     try {
       final pokemons = await repository.fetchPokemons(limit, state.offset);
       state = state.copyWith(
