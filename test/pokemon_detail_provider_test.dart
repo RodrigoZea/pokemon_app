@@ -23,7 +23,7 @@ void main() {
       container.dispose();
     });
 
-    test('fetchPokemonDetail sets state to data on success', () async {
+    test('fetchPokemonDetail guarda el estado con la data cuando se ejecuta con éxito', () async {
       const pokemonDetail = PokemonDetail(
         id: 1,
         name: 'Bulbasaur',
@@ -37,9 +37,9 @@ void main() {
       expect(state, pokemonDetail);
     });
 
-    test('fetchPokemonDetail sets state to error on failure', () async {
+    test('fetchPokemonDetail define el estado como error cuando no se ejecuta con éxito', () async {
       when(mockPokemonRepository.fetchPokemonDetail(argThat(isA<String>())))
-          .thenThrow(Exception('Failed to fetch pokemon details'));
+          .thenThrow(Exception('Error al fetchear detalles del pokémon'));
 
       final futureProvider = container.read(pokemonDetailProvider('Bulbasaur').future);
 

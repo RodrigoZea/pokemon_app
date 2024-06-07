@@ -1,30 +1,21 @@
 # pokemon_app
 
-A new Flutter project.
+Un proyecto hecho en Flutter que consulta un API en GraphQL para obtener información de diferentes pokemones.
 
-## Getting Started
+## Build
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple).
+Para correr la aplicación en cualquier dispositivo, solamente es necesario correr el siguiente comando:
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```
+flutter run
+```
 
-## Assets
+## Tests
 
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
+Para correr los tests de la aplicación, es necesario correr el siguiente comando:
 
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
+```
+flutter test
+```
 
-## Localization
-
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
-
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+Se realizaron pruebas para los métodos del repositorio para consultar la lista de pokemones y detalles de un pokemon en específico. Para esto, se realizaron pruebas con Mockito para emular el comportamiento de pokemon_notifier (definido en core/providers.dart) y de pokemon_detail_provider (definido en providers.dart). La definición de las pruebas se puede encontrar debajo de la carpeta test.
