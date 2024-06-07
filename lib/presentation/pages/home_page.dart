@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:pokemon_app/extensions/utils.dart';
 import '../../core/state/pokemon_notifier.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -49,8 +51,50 @@ class HomePageState extends ConsumerState<HomePage> {
                       return const Center(child: CircularProgressIndicator());
                     }
                     final pokemon = state.pokemons[index];
-                    return ListTile(
-                      title: Text(pokemon.name),
+                    return Center(
+                      child: SizedBox(
+                        width: 300, // Adjust the width as needed
+                        child: InkWell(
+                          onTap: () {
+                            context.go('/detail', extra: pokemon.name);
+                          },
+                          child: Card(
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '#${pokemon.id}',
+                                        style: const TextStyle(
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      const SizedBox(width: 8),
+                                      Image.network(
+                                        pokemon.image,
+                                        width: 80,
+                                        height: 80,
+                                        errorBuilder: (context, error, stackTrace) {
+                                          return const Icon(Icons.error);
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Text(
+                                    pokemon.name.capitalize(),
+                                    style: const TextStyle(fontSize: 16.0),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     );
                   },
                 ),

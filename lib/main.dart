@@ -5,6 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pokemon_app/core/providers.dart';
 import 'package:pokemon_app/presentation/pages/home_page.dart';
 import 'package:pokemon_app/presentation/pages/landing_page.dart';
+import 'package:pokemon_app/presentation/pages/pokemon_detail_page.dart';
 
 /* Configuración de router y rutas */
 final GoRouter _router = GoRouter(
@@ -19,6 +20,13 @@ final GoRouter _router = GoRouter(
       path: '/home',
       builder: (BuildContext builder, GoRouterState state) {
         return const HomePage();
+      }
+    ),
+    GoRoute(
+      path: '/detail',
+      builder: (BuildContext builder, GoRouterState state) {
+        String name = state.extra as String;
+        return PokemonDetailPage(name: name);
       }
     )
   ]

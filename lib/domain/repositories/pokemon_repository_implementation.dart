@@ -13,7 +13,9 @@ class PokemonRepositoryImplementation implements PokemonRepository {
       query Pokemons(\$limit: Int, \$offset: Int) {
         pokemons(limit: \$limit, offset: \$offset) {
           results {
+            url
             name
+            image
           }
         }
       }
@@ -29,7 +31,16 @@ class PokemonRepositoryImplementation implements PokemonRepository {
     }
 
     final pokemons = (result.data?['pokemons']['results'] as List)
-        .map((e) => Pokemon.fromJson(e))
+        .asMap()
+        .entries
+        .map((entry) {
+          final index = entry.key;
+          final pokemonData = entry.value as Map<String, dynamic>;
+          return Pokemon.fromJson({
+            'id': offset + index + 1, // Calculate ID based on offset and index
+            ...pokemonData,
+          });
+        })
         .toList();
 
     return pokemons;
