@@ -14,21 +14,28 @@ final GoRouter _router = GoRouter(
       path: '/',
       builder: (BuildContext builder, GoRouterState state) {
         return const LandingPage();
-      }
+      },
+      routes: [
+        GoRoute(
+          path: 'home',
+          builder: (BuildContext builder, GoRouterState state) {
+            return const HomePage();
+          },
+          routes: [
+            GoRoute(
+              name: 'detail',
+              path: 'detail/:name',
+              builder: (BuildContext builder, GoRouterState state) {
+                
+                return PokemonDetailPage(
+                  name: state.pathParameters['name'] ?? ''
+                );
+              }
+            )
+          ]
+        )
+      ]
     ),
-    GoRoute(
-      path: '/home',
-      builder: (BuildContext builder, GoRouterState state) {
-        return const HomePage();
-      }
-    ),
-    GoRoute(
-      path: '/detail',
-      builder: (BuildContext builder, GoRouterState state) {
-        String name = state.extra as String;
-        return PokemonDetailPage(name: name);
-      }
-    )
   ]
 );
 

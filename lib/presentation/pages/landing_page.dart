@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LandingPage extends StatelessWidget {
   const LandingPage({super.key});
@@ -7,13 +8,32 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      appBar: AppBar(title: const Text('Landing Page')),
       body: Center(
-        child: ElevatedButton(
-          onPressed: () => context.go('/home'),
-          child: const Text('Go to the home screen')
-        )
-      )
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                      'Pokédex',
+                      style: GoogleFonts.pixelifySans(
+                        textStyle: const TextStyle(
+                          fontSize: 50
+                        )
+                      ),
+                    ),
+                  OutlinedButton(
+                    onPressed: () => context.go('/home'),
+                    child: Text(
+                      'Continuar',
+                      style: GoogleFonts.pixelifySans(
+                        textStyle: const TextStyle(
+                          fontSize: 20,
+                          color: Colors.blue
+                        )
+                      ),
+                    )
+                  )
+              ])
+            )
     );
   }
 }

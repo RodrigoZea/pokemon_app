@@ -1,5 +1,6 @@
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pokemon_app/domain/entities/pokemon.dart';
+import 'package:pokemon_app/domain/entities/pokemon_detail.dart';
 import 'package:pokemon_app/domain/repositories/pokemon_repository.dart';
 
 class PokemonRepositoryImplementation implements PokemonRepository {
@@ -44,5 +45,51 @@ class PokemonRepositoryImplementation implements PokemonRepository {
         .toList();
 
     return pokemons;
+  }
+
+  @override
+  Future<PokemonDetail> fetchPokemonDetail(String name) async {
+    const String query = '''
+      query Pokemon(\$name: String!) {
+        pokemon(name: \$name) {
+          id
+          name
+          sprites {
+            front_default
+          }
+          types {
+            type {
+              name
+            }
+          }
+        }
+      }
+    ''';
+
+    final result = await client.query(QueryOptions(
+      document: gql(query),
+      variables: {'name' : name},
+    ));
+
+    if (result.hasException) {
+      throw Exception(result.exception.toString());
+    }
+
+    final pokemonData = result.data?['pokemon'];
+    if (pokemonData == null) {
+      throw Exception('Pokemon not found');
+    }
+
+    final types = (pokemonData['types'] as List)
+        .map((type) => type['type']['name'] as String)
+        .toList();
+
+    return PokemonDetail.fromJson({
+      'id': pokemonData['id'],
+      'name': pokemonData['name'],
+      'frontDefault': pokemonData['sprites']['front_default'],
+      'types': types,
+    });
+
   }
 }

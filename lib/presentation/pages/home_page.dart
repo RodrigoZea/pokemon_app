@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:pokemon_app/extensions/utils.dart';
 import '../../core/state/pokemon_notifier.dart';
 import 'package:go_router/go_router.dart';
@@ -38,7 +39,16 @@ class HomePageState extends ConsumerState<HomePage> {
     final state = ref.watch(pokemonNotifierProvider);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Pokemon')),
+      appBar: AppBar(title: 
+            Text(
+              'Pokédex',
+              style: GoogleFonts.pixelifySans(
+                textStyle: const TextStyle(
+                  fontSize: 30
+                )
+              )
+            )      
+      ),
       body: state.loading && state.pokemons.isEmpty
           ? const Center(child: CircularProgressIndicator())
           : state.error != null
@@ -56,11 +66,10 @@ class HomePageState extends ConsumerState<HomePage> {
                         width: 300, // Adjust the width as needed
                         child: InkWell(
                           onTap: () {
-                            context.go('/detail', extra: pokemon.name);
+                            context.goNamed('detail', pathParameters: {'name': pokemon.name});
                           },
                           child: Card(
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
+
                               child: Column(
                                 children: [
                                   Row(
@@ -68,9 +77,11 @@ class HomePageState extends ConsumerState<HomePage> {
                                     children: [
                                       Text(
                                         '#${pokemon.id}',
-                                        style: const TextStyle(
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.bold,
+                                        style: GoogleFonts.vt323(
+                                          textStyle: const TextStyle(
+                                            fontSize: 30.0,
+                                            fontWeight: FontWeight.bold
+                                          )
                                         ),
                                       ),
                                       const SizedBox(width: 8),
@@ -87,11 +98,14 @@ class HomePageState extends ConsumerState<HomePage> {
                                   const SizedBox(height: 8),
                                   Text(
                                     pokemon.name.capitalize(),
-                                    style: const TextStyle(fontSize: 16.0),
+                                    style: GoogleFonts.vt323(
+                                      textStyle: const TextStyle(
+                                        fontSize: 25.0
+                                      )
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
                           ),
                         ),
                       ),

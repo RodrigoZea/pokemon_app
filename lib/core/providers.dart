@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pokemon_app/core/state/pokemon_notifier.dart';
+import 'package:pokemon_app/domain/entities/pokemon_detail.dart';
 import 'package:riverpod/riverpod.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:pokemon_app/domain/repositories/pokemon_repository_implementation.dart';
@@ -24,4 +25,10 @@ final pokemonRepositoryProvider = Provider<PokemonRepository>((ref) {
 final pokemonNotifierProvider = StateNotifierProvider<PokemonNotifier, PokemonState>((ref) {
   final repository = ref.watch(pokemonRepositoryProvider);
   return PokemonNotifier(repository);
+});
+
+// Usamos un FutureProvider ya que es un requisito del documento, se podría realizar con un StateNotifier también
+final pokemonDetailProvider = FutureProvider.family<PokemonDetail, String>((ref, name) {
+  final repository = ref.watch(pokemonRepositoryProvider);
+  return repository.fetchPokemonDetail(name);
 });
